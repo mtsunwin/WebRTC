@@ -3,7 +3,7 @@ const path = require('path'),
     express = require('express'),
     app = express();
 
-const PORT = 8080;
+const PORT = 3000;
 
 app.use(express.static('public'));
 
@@ -18,6 +18,15 @@ app.get('/', (req, res) => {
 
 app.get('/chat', (req, response) => {
     fs.readFile('./public/chat.html', function (err, html) {
+        if (err) throw err;
+        response.writeHeader(200, { "Content-Type": "text/html" });
+        response.write(html);
+        response.end();
+    })
+})
+
+app.get('/chat-ws', (req, response) => {
+    fs.readFile('./public/chat-ws.html', function (err, html) {
         if (err) throw err;
         response.writeHeader(200, { "Content-Type": "text/html" });
         response.write(html);

@@ -10,21 +10,18 @@ var connectedUser, myConnection;
 //when a user clicks the login button 
 loginBtn.addEventListener("click", function (event) {
     name = loginInput.value;
-
     if (name.length > 0) {
         send({
             type: "login",
             name: name
         });
     }
-
 });
 
 //handle messages from the server 
 connection.onmessage = function (message) {
     console.log("Got message", message.data);
     var data = JSON.parse(message.data);
-
     switch (data.type) {
         case "login":
             onLogin(data.success);
@@ -45,20 +42,17 @@ connection.onmessage = function (message) {
 
 //when a user logs in 
 function onLogin(success) {
-
+    console.log("Connecting")
     if (success === false) {
         alert("oops...try a different username");
     } else {
         //creating our RTCPeerConnection object 
-
         var configuration = {
             "iceServers": [{ "url": "stun:stun.1.google.com:19302" }]
         };
-
         myConnection = new webkitRTCPeerConnection(configuration);
         console.log("RTCPeerConnection object was created");
         console.log(myConnection);
-
         //setup ice handling
         //when the browser finds an ice candidate we send it to another peer 
         myConnection.onicecandidate = function (event) {
@@ -83,20 +77,18 @@ connection.onerror = function (err) {
 
 // Alias for sending messages in JSON format 
 function send(message) {
-
     if (connectedUser) {
         message.name = connectedUser;
     }
-
+    console.log("thangtm:", message)
     connection.send(JSON.stringify(message));
 };
 
 //setup a peer connection with another user 
 connectToOtherUsernameBtn.addEventListener("click", function () {
-
     var otherUsername = otherUsernameInput.value;
     connectedUser = otherUsername;
-
+    console.log("this run now")
     if (otherUsername.length > 0) {
         //make an offer 
         myConnection.createOffer(function (offer) {
@@ -105,7 +97,6 @@ connectToOtherUsernameBtn.addEventListener("click", function () {
                 type: "offer",
                 offer: offer
             });
-
             myConnection.setLocalDescription(offer);
         }, function (error) {
             alert("An error has occurred.");
@@ -117,15 +108,12 @@ connectToOtherUsernameBtn.addEventListener("click", function () {
 function onOffer(offer, name) {
     connectedUser = name;
     myConnection.setRemoteDescription(new RTCSessionDescription(offer));
-
     myConnection.createAnswer(function (answer) {
         myConnection.setLocalDescription(answer);
-
         send({
             type: "answer",
             answer: answer
         });
-
     }, function (error) {
         alert("oops...error");
     });
