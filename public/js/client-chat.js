@@ -1,4 +1,4 @@
-var connection = new WebSocket('wss://159.65.4.146:8181');
+var connection = new WebSocket('ws://localhost:8181');
 var name = "";
 
 var loginInput = document.querySelector('#loginInput');

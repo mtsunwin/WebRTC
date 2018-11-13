@@ -3,7 +3,7 @@ var name;
 var connectedUser;
 
 //connecting to our signaling server 
-var conn = new WebSocket('wss://159.65.4.146:8181');
+var conn = new WebSocket('ws://localhost:8181');
 
 conn.onopen = function () {
     console.log("Connected to the signaling server");
@@ -96,7 +96,7 @@ function handleLogin(success) {
         callPage.style.display = "block";
 
         //********************** 
-        //Starting a peer connection 
+        //Starting a peer connection
         //********************** 
 
         //getting local video stream 
