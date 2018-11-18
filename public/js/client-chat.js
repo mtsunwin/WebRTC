@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 var connection = new WebSocket('wss://localhost:8181');
+=======
+var connection = new WebSocket('ws://localhost:8181');
+>>>>>>> 8e6fac2055901fb25c340952ccd97068ec56bd3a
 var name = "";
 
 var loginInput = document.querySelector('#loginInput');
