@@ -4,44 +4,17 @@ const path = require('path'),
     app = express();
 
 const PORT = 3000;
-
 app.use(express.static('public'));
-
-app.get('/', (req, res) => {
-    fs.readFile('./public/index.html', function (err, html) {
-        if (err) throw err;
-        response.writeHeader(200, { "Content-Type": "text/html" });
-        response.write(html);
-        response.end();
-    })
-})
-
-app.get('/chat', (req, response) => {
-    fs.readFile('./public/chat.html', function (err, html) {
-        if (err) throw err;
-        response.writeHeader(200, { "Content-Type": "text/html" });
-        response.write(html);
-        response.end();
-    })
-})
-
-app.get('/chat-ws', (req, response) => {
-    fs.readFile('./public/chat-ws.html', function (err, html) {
-        if (err) throw err;
-        response.writeHeader(200, { "Content-Type": "text/html" });
-        response.write(html);
-        response.end();
-    })
-})
-
-app.get('/videocall', (req, response) => {
-    fs.readFile('./public/videocall.html', function (err, html) {
-        if (err) throw err;
-        response.writeHeader(200, { "Content-Type": "text/html" });
-        response.write(html);
-        response.end();
-    })
-})
+app.set('PORT', process.env.PORT || PORT)
+app.listen(app.get('PORT'), () => console.log(`App listening on port ${app.get("PORT")}!`));
 
 
-app.listen(PORT, () => console.log(`App listening on port ${PORT}!`));
+const routeChat = require('./router/routerChat')
+const routeIndex = require('./router/routerIndex')
+const routeVideoCall = require('./router/routerVideoCall')
+
+routeChat(app)
+routeIndex(app)
+routeVideoCall(app)
+
+

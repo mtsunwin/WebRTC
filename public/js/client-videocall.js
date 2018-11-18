@@ -3,13 +3,10 @@ var name;
 var connectedUser;
 
 //connecting to our signaling server 
-<<<<<<< HEAD
-var conn = new WebSocket('wss://localhost:8181');
-=======
-var conn = new WebSocket('ws://localhost:8181');
->>>>>>> 8e6fac2055901fb25c340952ccd97068ec56bd3a
 
-conn.onopen = function () {
+var conn = new WebSocket('wss://server-webrtc-thangtm.herokuapp.com:8181');
+
+conn.onopen = function (event) {
     console.log("Connected to the signaling server");
 };
 
@@ -52,17 +49,14 @@ function send(message) {
     if (connectedUser) {
         message.name = connectedUser;
     }
-
     conn.send(JSON.stringify(message));
 };
 
 //****** 
 var localVideo = document.querySelector('#localVideo');
 var remoteVideo = document.querySelector('#remoteVideo');
-
 var yourConn;
 var stream;
-
 //****** 
 
 var loginPage = document.querySelector('#loginPage');
