@@ -4,7 +4,7 @@ var connectedUser;
 
 //connecting to our signaling server 
 
-var conn = new WebSocket('wss://server-webrtc-thangtm.herokuapp.com:8181');
+var conn = new WebSocket('wss://server-webrtc-thangtm.herokuapp.com');
 
 conn.onopen = function (event) {
     console.log("Connected to the signaling server");
@@ -13,9 +13,7 @@ conn.onopen = function (event) {
 //when we got a message from a signaling server 
 conn.onmessage = function (msg) {
     console.log("Got message", msg.data);
-
     var data = JSON.parse(msg.data);
-
     switch (data.type) {
         case "login":
             handleLogin(data.success);
@@ -172,7 +170,6 @@ hangUpBtn.addEventListener("click", function () {
     send({
         type: "leave"
     });
-
     handleLeave();
 });
 
