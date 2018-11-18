@@ -4,7 +4,7 @@ var connectedUser;
 
 //connecting to our signaling server 
 
-var conn = new WebSocket('wss://server-webrtc-thangtm.herokuapp.com:8181');
+var conn = new WebSocket('ws://server-webrtc-thangtm.herokuapp.com:8181');
 
 conn.onopen = function (event) {
     console.log("Connected to the signaling server");
