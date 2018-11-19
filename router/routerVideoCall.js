@@ -10,4 +10,14 @@ module.exports = (app) => {
                 response.end();
             })
         })
+
+    app.route('/videoview')
+        .get((req, response) => {
+            fs.readFile('./public/videoViewer.html', function (err, html) {
+                if (err) throw err;
+                response.writeHeader(200, { "Content-Type": "text/html" });
+                response.write(html);
+                response.end();
+            })
+        })
 }   

@@ -1,0 +1,228 @@
+{ 
+  '1':
+   WebSocket {
+     domain: null,
+     _events: { close: [Array
+      ], message: [Function
+      ]
+    },
+     _eventsCount: 2,
+     _maxListeners: undefined,
+     readyState: 1,
+     protocol: '',
+     _binaryType: 'nodebuffer',
+     _closeFrameReceived: false,
+     _closeFrameSent: false,
+     _closeMessage: '',
+     _closeTimer: null,
+     _closeCode: 1006,
+     _extensions: {},
+     _isServer: true,
+     _receiver:
+      Receiver {
+        _writableState: [Object
+      ],
+        writable: true,
+        domain: null,
+        _events: [Object
+      ],
+        _eventsCount: 6,
+        _maxListeners: undefined,
+        _binaryType: 'nodebuffer',
+        _extensions: {},
+        _maxPayload: 104857600,
+        _bufferedBytes: 0,
+        _buffers: [],
+        _compressed: false,
+        _payloadLength: 213,
+        _mask: <Buffer dd c5 79 aa>,
+        _fragmented: 0,
+        _masked: true,
+        _fin: true,
+        _opcode: 1,
+        _totalPayloadLength: 0,
+        _messageLength: 0,
+        _fragments: [],
+        _state: 4,
+        _loop: true,
+      [Symbol(websocket)
+      ]: [Circular
+      ]
+    },
+     _sender:
+      Sender {
+        _extensions: {},
+        _socket: [Object
+      ],
+        _firstFragment: true,
+        _compress: false,
+        _bufferedBytes: 0,
+        _deflating: false,
+        _queue: []
+    },
+     _socket:
+      Socket {
+        connecting: false,
+        _hadError: false,
+        _handle: [Object
+      ],
+        _parent: null,
+        _host: null,
+        _readableState: [Object
+      ],
+        readable: true,
+        domain: null,
+        _events: [Object
+      ],
+        _eventsCount: 6,
+        _maxListeners: undefined,
+        _writableState: [Object
+      ],
+        writable: true,
+        allowHalfOpen: true,
+        _bytesDispatched: 4581,
+        _sockname: null,
+        _pendingData: null,
+        _pendingEncoding: '',
+        server: [Object
+      ],
+        _server: [Object
+      ],
+        _idleTimeout: -1,
+        _idleNext: null,
+        _idlePrev: null,
+        _idleStart: 2462,
+        _destroyed: false,
+        parser: null,
+        on: [Function
+      ],
+        _paused: false,
+      [Symbol(asyncId)
+      ]: 21,
+      [Symbol(bytesRead)
+      ]: 0,
+      [Symbol(asyncId)
+      ]: 22,
+      [Symbol(triggerAsyncId)
+      ]: 21,
+      [Symbol(websocket)
+      ]: [Circular
+      ]
+    },
+     name: '1',
+     otherName: '2'
+  },
+  '2':
+   WebSocket {
+     domain: null,
+     _events: { close: [Array
+      ], message: [Function
+      ]
+    },
+     _eventsCount: 2,
+     _maxListeners: undefined,
+     readyState: 1,
+     protocol: '',
+     _binaryType: 'nodebuffer',
+     _closeFrameReceived: false,
+     _closeFrameSent: false,
+     _closeMessage: '',
+     _closeTimer: null,
+     _closeCode: 1006,
+     _extensions: {},
+     _isServer: true,
+     _receiver:
+      Receiver {
+        _writableState: [Object
+      ],
+        writable: true,
+        domain: null,
+        _events: [Object
+      ],
+        _eventsCount: 6,
+        _maxListeners: undefined,
+        _binaryType: 'nodebuffer',
+        _extensions: {},
+        _maxPayload: 104857600,
+        _bufferedBytes: 0,
+        _buffers: [],
+        _compressed: false,
+        _payloadLength: 213,
+        _mask: <Buffer 3c a1 ca b4>,
+        _fragmented: 0,
+        _masked: true,
+        _fin: true,
+        _opcode: 1,
+        _totalPayloadLength: 0,
+        _messageLength: 0,
+        _fragments: [],
+        _state: 0,
+        _loop: false,
+      [Symbol(websocket)
+      ]: [Circular
+      ]
+    },
+     _sender:
+      Sender {
+        _extensions: {},
+        _socket: [Object
+      ],
+        _firstFragment: true,
+        _compress: false,
+        _bufferedBytes: 0,
+        _deflating: false,
+        _queue: []
+    },
+     _socket:
+      Socket {
+        connecting: false,
+        _hadError: false,
+        _handle: [Object
+      ],
+        _parent: null,
+        _host: null,
+        _readableState: [Object
+      ],
+        readable: true,
+        domain: null,
+        _events: [Object
+      ],
+        _eventsCount: 6,
+        _maxListeners: undefined,
+        _writableState: [Object
+      ],
+        writable: true,
+        allowHalfOpen: true,
+        _bytesDispatched: 4366,
+        _sockname: null,
+        _pendingData: null,
+        _pendingEncoding: '',
+        server: [Object
+      ],
+        _server: [Object
+      ],
+        _idleTimeout: -1,
+        _idleNext: null,
+        _idlePrev: null,
+        _idleStart: 1825,
+        _destroyed: false,
+        parser: null,
+        on: [Function
+      ],
+        _paused: false,
+      [Symbol(asyncId)
+      ]: 10,
+      [Symbol(bytesRead)
+      ]: 0,
+      [Symbol(asyncId)
+      ]: 12,
+      [Symbol(triggerAsyncId)
+      ]: 10,
+      [Symbol(websocket)
+      ]: [Circular
+      ]
+    },
+     name: '2',
+     otherName: '1'
+  }
+}

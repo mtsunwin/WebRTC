@@ -14,7 +14,6 @@ if (hasUserMedia()) {
       navigator.getUserMedia({ video: true, audio: true }, function (s) {
             stream = s;
             var video = document.querySelector('video');
-
             //inserting our stream to the video tag     
             video.src = window.URL.createObjectURL(stream);
       }, function (err) { });

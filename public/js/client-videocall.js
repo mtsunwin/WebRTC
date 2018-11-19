@@ -1,18 +1,22 @@
 //our username 
 var name;
 var connectedUser;
-
+var listStreamming = [];
 //connecting to our signaling server 
 
-var conn = new WebSocket('wss://server-webrtc-thangtm.herokuapp.com');
+// var conn = new WebSocket('wss://server-webrtc-thangtm.herokuapp.com');
+var conn = new WebSocket('ws://localhost:3001');
 
 conn.onopen = function (event) {
     console.log("Connected to the signaling server");
 };
 
+conn.onerror = function (err) {
+    console.log("Got error", err);
+};
+
 //when we got a message from a signaling server 
 conn.onmessage = function (msg) {
-    console.log("Got message", msg.data);
     var data = JSON.parse(msg.data);
     switch (data.type) {
         case "login":
@@ -37,12 +41,11 @@ conn.onmessage = function (msg) {
     }
 };
 
-conn.onerror = function (err) {
-    console.log("Got error", err);
-};
-
 //alias for sending JSON encoded messages 
 function send(message) {
+    console.log('====================================');
+    console.log("thangtm sent to server: ", message);
+    console.log('====================================');
     //attach the other peer username to our messages 
     if (connectedUser) {
         message.name = connectedUser;
@@ -53,6 +56,7 @@ function send(message) {
 //****** 
 var localVideo = document.querySelector('#localVideo');
 var remoteVideo = document.querySelector('#remoteVideo');
+
 var yourConn;
 var stream;
 //****** 
@@ -81,6 +85,24 @@ loginBtn.addEventListener("click", function (event) {
     }
 });
 
+function jvDomVideo(_url) {
+    var video = document.createElement('video');
+    video.src = _url;
+    video.autoplay = true;
+    video.height = 100;
+    document.getElementById("videoDom").appendChild(video)
+}
+
+/**
+ * When user login
+ * 1. if name exits else alert
+ * 2. else
+ * 4. open stream
+ * 5. show to display
+ * 6. connect STUN/TURN
+ * 7. 
+ * @param {*} success 
+ */
 function handleLogin(success) {
     if (success === false) {
         alert("Ooops...try a different username");
@@ -91,7 +113,7 @@ function handleLogin(success) {
         //Starting a peer connection
         //********************** 
         //getting local video stream 
-        navigator.webkitGetUserMedia({ video: true, audio: true }, function (myStream) {
+        navigator.webkitGetUserMedia({ video: true, audio: false }, function (myStream) {
             stream = myStream;
             //displaying local video stream on the page 
             localVideo.src = window.URL.createObjectURL(stream);
@@ -104,6 +126,12 @@ function handleLogin(success) {
             yourConn.addStream(stream);
             //when a remote user adds stream to the peer connection, we display it 
             yourConn.onaddstream = function (e) {
+                console.log("thang stream ", window.URL.createObjectURL(e.stream));
+
+                var resultFilter = listStreamming.filter(val => val == window.URL.createObjectURL(e.stream))
+                if (resultFilter.length == 0) {
+                    listStreamming.push(window.URL.createObjectURL(e.stream))
+                }
                 remoteVideo.src = window.URL.createObjectURL(e.stream);
             };
             // Setup ice handling 
@@ -140,19 +168,24 @@ callBtn.addEventListener("click", function () {
 });
 
 //when somebody sends us an offer 
-function handleOffer(offer, name) {
-    connectedUser = name;
-    yourConn.setRemoteDescription(new RTCSessionDescription(offer));
-    //create an answer to an offer 
-    yourConn.createAnswer(function (answer) {
-        yourConn.setLocalDescription(answer);
-        send({
-            type: "answer",
-            answer: answer
+async function handleOffer(offer, name) {
+    // let askConnect = await confirm(`Are you sure connect with ${name} ?`)
+    // if (askConnect) {
+        connectedUser = name;
+        yourConn.setRemoteDescription(new RTCSessionDescription(offer));
+        //create an answer to an offer 
+        yourConn.createAnswer(function (answer) {
+            // prepare sendding messenger over signaling server to End-Point
+            yourConn.setLocalDescription(answer);
+            send({
+                type: "answer",
+                answer: answer
+            });
+        }, function (error) {
+            alert("Error when creating an answer");
         });
-    }, function (error) {
-        alert("Error when creating an answer");
-    });
+    // } else {
+    // }
 };
 
 //when we got an answer from a remote user 
@@ -160,7 +193,7 @@ function handleAnswer(answer) {
     yourConn.setRemoteDescription(new RTCSessionDescription(answer));
 };
 
-//when we got an ice candidate from a remote user 
+//when we got an ice candidate from a remote user
 function handleCandidate(candidate) {
     yourConn.addIceCandidate(new RTCIceCandidate(candidate));
 };
@@ -176,7 +209,6 @@ hangUpBtn.addEventListener("click", function () {
 function handleLeave() {
     connectedUser = null;
     remoteVideo.src = null;
-
     yourConn.close();
     yourConn.onicecandidate = null;
     yourConn.onaddstream = null;
