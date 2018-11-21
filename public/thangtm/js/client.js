@@ -1,4 +1,4 @@
-const connection = new WebSocket('wss://server-webrtc-thangtm.herokuapp.com:26927');
+const connection = new WebSocket('wss://server-webrtc-thangtm.herokuapp.com');
 const configuration = {
     "iceServers": [{ "url": "stun:stun2.1.google.com:19302" }]
 };
