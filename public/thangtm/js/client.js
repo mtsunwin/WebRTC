@@ -1,6 +1,11 @@
 const connection = new WebSocket('wss://server-webrtc-thangtm.herokuapp.com');
 const configuration = {
-    "iceServers": [{ "url": "stun:stun2.1.google.com:19302" }]
+    // "iceServers": [{ "url": "stun:stun2.1.google.com:19302" }]
+    iceServers: [{
+        url: 'turn:numb.viagenie.ca',
+        credential: 'muazkh',
+        username: 'webrtc@live.com'
+    }]
 };
 
 var yourConnect_WebRTC;
