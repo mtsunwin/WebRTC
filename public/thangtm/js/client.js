@@ -83,14 +83,14 @@ function handleLogin(status, message) {
         navigator.mediaDevices.getUserMedia(constraints)
             .then(
                 myStream => {
-                    document.getElementById("yourVideosStream").src = window.URL.createObjectURL(myStream);
+                    document.getElementById("yourVideosStream").srcObject = myStream;
 
                     yourConnect_WebRTC = new webkitRTCPeerConnection(configuration);
 
                     yourConnect_WebRTC.addStream(myStream);
 
                     yourConnect_WebRTC.onaddstream = function (e) {
-                        document.getElementById('VdeosStream').src = window.URL.createObjectURL(e.stream);
+                        document.getElementById('VdeosStream').srcObject = e.stream;
                         console.log("webrtc: ", yourConnect_WebRTC.getRemoteStreams())
                     };
 
