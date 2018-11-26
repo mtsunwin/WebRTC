@@ -30,7 +30,7 @@ connection.onmessage = function (msg) {
             handleLogin(msg.status, msg.message);
             break;
         case 'offer':
-            alert("thang");
+            alert("thang" + msg.type);
             console.log("thangtm offer: ", msg)
             console.log("thangtm offer: ", msg.v.length)
             if (msg.v) {
