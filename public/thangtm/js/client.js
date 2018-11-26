@@ -79,7 +79,7 @@ function handleLogin(status, message) {
     if (!status) {
         alert(message)
     } else {
-        var constraints = { audio: true, video: { width: 1280, height: 720 } };
+        var constraints = { audio: false, video: true };
         navigator.mediaDevices.getUserMedia(constraints)
             .then(
                 myStream => {
