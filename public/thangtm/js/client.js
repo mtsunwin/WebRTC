@@ -2,9 +2,9 @@ const connection = new WebSocket('wss://server-webrtc-thangtm.herokuapp.com');
 const configuration = {
     "iceServers": [
             {
-            url: 'turn:numb.viagenie.ca',
-            credential: 'muazkh',
-            username: 'webrtc@live.com'
+            url: ['stun:ss-turn1.xirsys.com', 'turn:ss-turn1.xirsys.com:80?transport=udp', 'turn:ss-turn1.xirsys.com:3478?transport=udp', 'turn:ss-turn1.xirsys.com:80?transport=tcp', 'turn:ss-turn1.xirsys.com:3478?transport=tcp', 'turns:ss-turn1.xirsys.com:443?transport=tcp', 'turns:ss-turn1.xirsys.com:5349?transport=tcp'],
+            credential: '9d61b156-f159-11e8-807d-32b0c04e5b2c',
+            username: '	9d61b0d4-f159-11e8-96d8-adf817ff6a2f'
         }
     ]
 };
