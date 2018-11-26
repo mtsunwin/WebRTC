@@ -118,7 +118,7 @@ function handleLogin(status, message) {
                     yourConnect_WebRTC_v2 = new webkitRTCPeerConnection(configuration);
                     yourConnect_WebRTC_v2.addStream(myStream);
                     yourConnect_WebRTC_v2.onaddstream = function (e) {
-                        document.getElementById('VdeosStream_v2').src = window.URL.createObjectURL(e.stream);
+                        document.getElementById('VdeosStream_v2').srcObject = e.stream;
                     };
                     yourConnect_WebRTC_v2.onicecandidate = function (event) {
                         if (event.candidate) {
