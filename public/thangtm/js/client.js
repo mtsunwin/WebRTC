@@ -79,55 +79,59 @@ function handleLogin(status, message) {
     if (!status) {
         alert(message)
     } else {
-        navigator.webkitGetUserMedia(
-            { video: true, audio: false },
-            myStream => {
-                document.getElementById("yourVideosStream").src = window.URL.createObjectURL(myStream);
-                yourConnect_WebRTC = new webkitRTCPeerConnection(configuration);
+        var constraints = { audio: true, video: { width: 1280, height: 720 } };
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(
+                myStream => {
+                    document.getElementById("yourVideosStream").src = window.URL.createObjectURL(myStream);
 
-                yourConnect_WebRTC.addStream(myStream);
-                yourConnect_WebRTC.onaddstream = function (e) {
-                    document.getElementById('VdeosStream').src = window.URL.createObjectURL(e.stream);
-                    console.log("webrtc: ", yourConnect_WebRTC.getRemoteStreams())
-                };
-                yourConnect_WebRTC.onicecandidate = function (event) {
-                    if (event.candidate) {
-                        sendToServer({
-                            type: "candidate",
-                            candidate: event.candidate,
-                            name: document.getElementById("iptCallTo").value
-                        });
-                    }
-                };
-                // yourConnect_WebRTC.createDataChannel("chat", {});
-                // yourConnect_WebRTC.ondatachannel = (ev) => {
-                //     ev.channel.onopen = function () {
-                //         console.log('Data channel is open and ready to be used.');
-                //     };
-                //     ev.channel.onmessage = function (event) {
-                //         alert("Client: " + event.data);
-                //     };
-                // };
-                yourConnect_WebRTC_v2 = new webkitRTCPeerConnection(configuration);
-                yourConnect_WebRTC_v2.addStream(myStream);
-                yourConnect_WebRTC_v2.onaddstream = function (e) {
-                    document.getElementById('VdeosStream_v2').src = window.URL.createObjectURL(e.stream);
-                };
-                yourConnect_WebRTC_v2.onicecandidate = function (event) {
-                    if (event.candidate) {
-                        sendToServer({
-                            type: "candidate",
-                            candidate: event.candidate,
-                            name: document.getElementById("iptCallTo_v2").value,
-                            v: 2
-                        });
-                    }
-                };
-            },
-            err => {
-                console.log('webkitGetUserMedia', error);
-            }
-        )
+                    yourConnect_WebRTC = new webkitRTCPeerConnection(configuration);
+
+                    yourConnect_WebRTC.addStream(myStream);
+
+                    yourConnect_WebRTC.onaddstream = function (e) {
+                        document.getElementById('VdeosStream').src = window.URL.createObjectURL(e.stream);
+                        console.log("webrtc: ", yourConnect_WebRTC.getRemoteStreams())
+                    };
+
+                    yourConnect_WebRTC.onicecandidate = function (event) {
+                        if (event.candidate) {
+                            sendToServer({
+                                type: "candidate",
+                                candidate: event.candidate,
+                                name: document.getElementById("iptCallTo").value
+                            });
+                        }
+                    };
+                    // yourConnect_WebRTC.createDataChannel("chat", {});
+                    // yourConnect_WebRTC.ondatachannel = (ev) => {
+                    //     ev.channel.onopen = function () {
+                    //         console.log('Data channel is open and ready to be used.');
+                    //     };
+                    //     ev.channel.onmessage = function (event) {
+                    //         alert("Client: " + event.data);
+                    //     };
+                    // };
+                    yourConnect_WebRTC_v2 = new webkitRTCPeerConnection(configuration);
+                    yourConnect_WebRTC_v2.addStream(myStream);
+                    yourConnect_WebRTC_v2.onaddstream = function (e) {
+                        document.getElementById('VdeosStream_v2').src = window.URL.createObjectURL(e.stream);
+                    };
+                    yourConnect_WebRTC_v2.onicecandidate = function (event) {
+                        if (event.candidate) {
+                            sendToServer({
+                                type: "candidate",
+                                candidate: event.candidate,
+                                name: document.getElementById("iptCallTo_v2").value,
+                                v: 2
+                            });
+                        }
+                    };
+                })
+            .catch(
+                err => {
+                    console.log('webkitGetUserMedia', err);
+                })
     }
 }
 
