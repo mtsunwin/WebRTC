@@ -11,6 +11,10 @@ const configuration = {
 
 var yourConnect_WebRTC;
 var yourConnect_WebRTC_v2;
+const constraints = window.constraints = {
+  audio: false,
+  video: true
+};
 
 connection.onopen = () => {
     console.log("Connected");
@@ -79,7 +83,6 @@ function handleLogin(status, message) {
     if (!status) {
         alert(message)
     } else {
-        var constraints = { audio: false, video: true };
         navigator.mediaDevices.getUserMedia(constraints)
             .then(
                 myStream => {
